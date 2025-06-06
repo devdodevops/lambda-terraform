@@ -5,7 +5,7 @@ output "lambda_arn" {
 
 output "role_arn" {
   description = "ARN of the IAM role for the Lambda"
-  value       = var.create_lambda_function ? aws_iam_role.function_role[0].arn : null
+  value       = var.create_lambda_function ? module.lambda_iam_role.0.iam_role_arn : null
 }
 
 output "cloudwatch_rule_arn" {
