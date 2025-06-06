@@ -83,6 +83,11 @@
 #   arn       = aws_lambda_function.export_logs_to_s3.0.arn
 # }
 
+resource "aws_s3_bucket" "claimcenter_log_bucket" {
+  bucket = "${lower(local.resource_prefix)}-claimcenter-logs"
+
+}
+
 module "lambda_iam_role" {
   count  = var.create_lambda_function ? 1 : 0
   source = "./modules/iam"
