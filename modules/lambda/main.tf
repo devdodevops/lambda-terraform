@@ -29,7 +29,7 @@ resource "aws_lambda_function" "function" {
   handler       = var.function_handler
   runtime       = var.function_runtime
   timeout       = var.function_timeout_in_seconds
-  role          = aws_iam_role.function_role[0].arn
+  role          = var.lambda_iam_role
 
   filename         = data.archive_file.function_zip[0].output_path
   source_code_hash = data.archive_file.function_zip[0].output_base64sha256
@@ -53,25 +53,25 @@ resource "aws_lambda_function" "function" {
 
 }
 
-# Conditional IAM role
-resource "aws_iam_role" "function_role" {
-  count = var.create_lambda_function ? 1 : 0
+# # Conditional IAM role
+# resource "aws_iam_role" "function_role" {
+#   count = var.create_lambda_function ? 1 : 0
 
-  name = "${var.function_name}-${var.environment}"
+#   name = "${var.function_name}-${var.environment}"
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "lambda.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
+#   assume_role_policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Action = "sts:AssumeRole"
+#         Effect = "Allow"
+#         Principal = {
+#           Service = "lambda.amazonaws.com"
+#         }
+#       }
+#     ]
+#   })
+# }
 
 # Conditional policy attachment
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {

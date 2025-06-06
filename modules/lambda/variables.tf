@@ -56,3 +56,7 @@ variable "log_prefix" {
   default     = "CloudWatchLogs"
   description = "S3 path prefix for exported logs"
 }
+
+variable "lambda_iam_role" {
+  type = string
+}
