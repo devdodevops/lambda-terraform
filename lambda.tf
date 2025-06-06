@@ -144,7 +144,7 @@ module "lambda" {
   function_source_dir          = "${path.module}/aws_lambda_functions/export_logs_to_s3"
   function_zip_output_dir      = "${path.module}/build"
   environment                  = "dev"
-  destination_bucket    = aws_s3_bucket.claimcenter_log_bucket.id
+  destination_bucket    = aws_s3_bucket.claimcenter_log_bucket[count.index].id
   log_group_names       = [
     var.claimcenetr_node01_serverid,
     var.claimcenetr_node02_serverid,
