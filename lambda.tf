@@ -104,6 +104,7 @@ module "lambda_iam_role" {
     "Version": "2012-10-17",
     "Statement": [
         {
+            "Sid": "AllowLogExportAndDescribeActions",
             "Effect": "Allow",
             "Action": [
                 "logs:DescribeExportTasks",
@@ -115,6 +116,7 @@ module "lambda_iam_role" {
             "Resource": "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:*"
         },
         {
+            "Sid": "AllowWriteToS3LogBucket",
             "Effect": "Allow",
             "Action": [
                 "s3:PutObject",
@@ -124,6 +126,16 @@ module "lambda_iam_role" {
                 "${aws_s3_bucket.claimcenter_log_bucket.0.arn}/*",
                 "${aws_s3_bucket.claimcenter_log_bucket.0.arn}"
             ]
+        },
+        {
+            "Sid": "AllowBasicLambdaExecutionLogging",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:*"
         }
     ]
 }
@@ -141,7 +153,6 @@ module "lambda" {
   function_handler             = "lambda_function.lambda_handler"
   function_runtime             = "python3.12"
   lambda_iam_role_arn          = module.lambda_iam_role.0.iam_role_arn
-  lambda_iam_role_name         = module.lambda_iam_role
   function_timeout_in_seconds  = 600
   function_source_dir          = "${path.module}/aws_lambda_functions/export_logs_to_s3"
   function_zip_output_dir      = "${path.module}/build"

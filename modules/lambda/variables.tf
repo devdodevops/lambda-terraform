@@ -57,10 +57,6 @@ variable "log_prefix" {
   description = "S3 path prefix for exported logs"
 }
 
-variable "lambda_iam_role_name" {
-  type = string
-}
-
 variable "lambda_iam_role_arn" {
   type = string
 }

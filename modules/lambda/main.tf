@@ -29,7 +29,7 @@ resource "aws_lambda_function" "function" {
   handler       = var.function_handler
   runtime       = var.function_runtime
   timeout       = var.function_timeout_in_seconds
-  role          = var.lambda_iam_role
+  role          = var.lambda_iam_role_arn
 
   filename         = data.archive_file.function_zip[0].output_path
   source_code_hash = data.archive_file.function_zip[0].output_base64sha256
@@ -74,12 +74,12 @@ resource "aws_lambda_function" "function" {
 # }
 
 # Conditional policy attachment
-resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
-  count = var.create_lambda_function ? 1 : 0
+# resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
+#   count = var.create_lambda_function ? 1 : 0
 
-  role       = var.lambda_iam_role_name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-}
+#   role       = var.lambda_iam_role_name
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+# }
 
 resource "aws_cloudwatch_event_rule" "daily_trigger" {
   count               = var.create_lambda_function ? 1 : 0
