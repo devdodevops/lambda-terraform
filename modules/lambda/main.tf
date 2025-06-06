@@ -77,7 +77,7 @@ resource "aws_lambda_function" "function" {
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   count = var.create_lambda_function ? 1 : 0
 
-  role       = module.lambda_iam_role.0.iam_role_arn
+  role       = var.lambda_iam_role
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
