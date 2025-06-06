@@ -39,3 +39,8 @@ variable "environment" {
   type        = string
   default = "dev-env"
 }
+
+variable "create_logger" {
+  type = bool
+  default = true
+}

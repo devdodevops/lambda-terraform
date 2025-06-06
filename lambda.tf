@@ -84,6 +84,7 @@
 # }
 
 resource "aws_s3_bucket" "claimcenter_log_bucket" {
+  count  = var.create_logger ? 1 : 0
   bucket = "${lower(local.resource_prefix)}-claimcenter-logs"
 
 }
