@@ -1,21 +1,21 @@
 # Conditional creation of build directory
-resource "null_resource" "create_build_dir" {
-  count = var.create_lambda_function ? 1 : 0
+# resource "null_resource" "create_build_dir" {
+#  count = var.create_lambda_function ? 1 : 0
 
-  triggers = {
-    always_run = timestamp()
-  }
-
-  provisioner "local-exec" {
-    command = "mkdir -p ${var.function_zip_output_dir}"
-  }
-}
+#  triggers = {
+#    always_run = timestamp()
+#  }
+#
+#  provisioner "local-exec" {
+#    command = "mkdir -p ${var.function_zip_output_dir}"
+#  }
+#}
 
 # Conditional ZIP creation
 data "archive_file" "function_zip" {
   count = var.create_lambda_function ? 1 : 0
 
-  depends_on  = [null_resource.create_build_dir[0]]
+#  depends_on  = [null_resource.create_build_dir[0]]
   type        = "zip"
   source_dir  = var.function_source_dir
   output_path = "${var.function_zip_output_dir}/${var.function_name}.zip"
