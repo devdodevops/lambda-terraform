@@ -83,11 +83,10 @@
 #   arn       = aws_lambda_function.export_logs_to_s3.0.arn
 # }
 
-resource "aws_s3_bucket" "claimcenter_log_bucket" {
-  count  = var.create_logger ? 1 : 0
-  bucket = "${lower(local.resource_prefix)}-claimcenter-logs"
-
-}
+# resource "aws_s3_bucket" "claimcenter_log_bucket" {
+#  count  = var.create_logger ? 1 : 0
+#  bucket = "${lower(local.resource_prefix)}-claimcenter-logs"
+# }
 
 module "lambda_iam_role" {
   count  = var.create_lambda_function ? 1 : 0
@@ -123,8 +122,8 @@ module "lambda_iam_role" {
                 "s3:GetBucketAcl"
             ],
             "Resource": [
-                "${aws_s3_bucket.claimcenter_log_bucket.0.arn}/*",
-                "${aws_s3_bucket.claimcenter_log_bucket.0.arn}"
+                "arn:aws:s3:::dev-env-claimcenter-logs/*",
+                "arn:aws:s3:::dev-env-claimcenter-logs"
             ]
         },
         {
@@ -157,7 +156,7 @@ module "lambda" {
   function_source_dir          = "${path.module}/aws_lambda_functions/export_logs_to_s3"
   function_zip_output_dir      = "${path.module}/build"
   environment                  = "dev"
-  destination_bucket    = aws_s3_bucket.claimcenter_log_bucket[count.index].id
+  destination_bucket    = "dev-env-claimcenter-logs"
   log_group_names       = [
     var.claimcenetr_node01_serverid,
     var.claimcenetr_node02_serverid,
