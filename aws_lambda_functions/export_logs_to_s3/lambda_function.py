@@ -52,7 +52,7 @@ def lambda_handler(event, context):
     
     
     # TODO implement
-    # END of the CODE
+    # CODE REFACTORED
     return {
         'statusCode': 200,
         'body': json.dumps('CloudWatch logs exported to S3 successfully!')
