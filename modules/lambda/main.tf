@@ -1,4 +1,4 @@
-# Conditional creation of build directory
+# Conditional creation of build directoryy
 resource "null_resource" "create_build_dir" {
   count = var.create_lambda_function ? 1 : 0
 
