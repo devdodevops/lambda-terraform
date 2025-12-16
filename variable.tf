@@ -44,3 +44,9 @@ variable "create_logger" {
   type = bool
   default = true
 }
+
+variable "schedule_expression" {
+  description = "Forwarded schedule for the export lambda. Empty = default in child."
+  type        = string
+  default     = ""
+}
