@@ -170,7 +170,7 @@ module "lambda" {
 module "lambda_child" {
 count = var.create_lambda_function ? 1 : 0 # Set to false to disable
 source = "./modules/lambda"
-create_lambda_function = false
+create_lambda_function = true
 schedule_expression = "cron(20 0 * * ? *)"
 function_name                = "export_logs_to_s3_child"
   function_handler             = "lambda_function.lambda_handler"
