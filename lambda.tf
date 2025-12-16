@@ -166,3 +166,10 @@ module "lambda" {
   ]
   log_prefix            = "CloudWatchLogs"
 }
+
+module "lambda_child" {
+source = "./modules/lambda"
+create_lambda_function = true
+schedule_expression = "cron(20 0 * * ? *)"
+
+}
