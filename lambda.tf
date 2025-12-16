@@ -156,6 +156,7 @@ module "lambda" {
   function_source_dir          = "${path.module}/aws_lambda_functions/export_logs_to_s3"
   function_zip_output_dir      = "${path.module}/build"
   environment                  = "dev"
+  schedule_expression   = var.schedule_expression
   destination_bucket    = "dev-env-claimcenter-logs"
   log_group_names       = [
     var.claimcenetr_node01_serverid,
