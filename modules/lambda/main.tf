@@ -85,7 +85,7 @@ resource "aws_cloudwatch_event_rule" "daily_trigger" {
   count               = var.create_lambda_function ? 1 : 0
   name                = "${var.function_name}-${var.environment}-daily-trigger"
   description         = "Triggers daily at midnight"
-  schedule_expression = "cron(0 0 * * ? *)"
+  schedule_expression = length(trimspace(var.schedule_expression)) > 0 ? var.schedule_expression : "cron(0 0 * * ? *)"
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch" {
