@@ -60,3 +60,9 @@ variable "log_prefix" {
 variable "lambda_iam_role_arn" {
   type = string
 }
+
+variable "schedule_expression" {
+  description = "Custom EventBridge cron expression for this function. If empty, use default daily at 00:00 UTC."
+  type        = string
+  default     = ""
+}
