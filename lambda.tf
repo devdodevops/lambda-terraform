@@ -168,6 +168,7 @@ module "lambda" {
 }
 
 module "lambda_child" {
+count = var.create_lambda_function ? 1 : 0 # Set to false to disable
 source = "./modules/lambda"
 create_lambda_function = false
 schedule_expression = "cron(20 0 * * ? *)"
