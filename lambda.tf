@@ -169,7 +169,22 @@ module "lambda" {
 
 module "lambda_child" {
 source = "./modules/lambda"
-create_lambda_function = true
+create_lambda_function = false
 schedule_expression = "cron(20 0 * * ? *)"
-
+function_name                = "export_logs_to_s3_child"
+  function_handler             = "lambda_function.lambda_handler"
+  function_runtime             = "python3.12"
+  lambda_iam_role_arn          = module.lambda_iam_role.0.iam_role_arn
+  function_timeout_in_seconds  = 600
+  function_source_dir          = "${path.module}/aws_lambda_functions/export_logs_to_s3"
+  function_zip_output_dir      = "${path.module}/build"
+  environment                  = "dev"
+  destination_bucket    = "dev-env-claimcenter-logs"
+  log_group_names       = [
+    var.claimcenetr_node01_serverid,
+    var.claimcenetr_node02_serverid,
+    var.claimcenetr_batch_serverid,
+    var.claimcenetr_contactmanager_serverid
+  ]
+  log_prefix            = "CloudWatchLogs"
 }
