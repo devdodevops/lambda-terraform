@@ -91,7 +91,6 @@
 module "lambda_iam_role" {
   count  = var.create_lambda_function ? 1 : 0
   source = "./modules/iam"
-  environment                  = "dev"
   role_name   = "${local.resource_prefix}-lambda-export-to-s3-role"
   policy_name = "${local.resource_prefix}-lambda-export-to-s3-policy"
 
