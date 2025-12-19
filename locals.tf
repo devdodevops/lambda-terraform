@@ -11,14 +11,4 @@ locals {
 
   # Resolve bucket ARN
   bucket_arn = lookup(local.env_bucket_map, var.environment, null)
-
-  # Required ARN variants
-  bucket_arn_slash  = local.bucket_arn != null ? "${local.bucket_arn}/"  : null
-  bucket_object_arn = local.bucket_arn != null ? "${local.bucket_arn}/*" : null
-
-  # Final list to use in the IAM policy
-  bucket_arn_variants = compact([
-    local.bucket_arn_slash,
-    local.bucket_object_arn
-  ])
 }
