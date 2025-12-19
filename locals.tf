@@ -10,5 +10,5 @@ locals {
   }
 
   # Resolve bucket ARN
-  bucket_arn = lookup(local.env_bucket_map, var.resource_prefix, null)
+  bucket_arn = lookup(local.env_bucket_map, var.environment, null)
 }
