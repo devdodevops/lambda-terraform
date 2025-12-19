@@ -37,7 +37,7 @@ variable "claimcenetr_contactmanager_serverid" {
 variable "environment" {
   description = "Either dev, qa, stg, prod"
   type        = string
-  default = "dev-env"
+  default = "dev"
 }
 
 variable "create_logger" {
