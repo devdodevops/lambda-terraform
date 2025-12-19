@@ -123,7 +123,9 @@ module "lambda_iam_role" {
             ],
             "Resource": [
                 "arn:aws:s3:::dev-env-claimcenter-logs/*",
-                "arn:aws:s3:::dev-env-claimcenter-logs"
+                "arn:aws:s3:::dev-env-claimcenter-logs",
+                ${local.bucket_arn}/*,
+                ${local.bucket_arn}
             ]
         },
         {
