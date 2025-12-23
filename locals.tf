@@ -1,6 +1,6 @@
 locals {
     resource_prefix = var.environment
-    release_version = "0.0.2"
+    release_version = "0.0.3"
 
   # Map of environment → base bucket ARN (without slash)
   env_bucket_map = {
