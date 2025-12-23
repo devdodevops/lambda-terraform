@@ -156,7 +156,7 @@ module "lambda" {
   function_timeout_in_seconds  = 600
   function_source_dir          = "${path.module}/aws_lambda_functions/export_logs_to_s3"
   function_zip_output_dir      = "${path.module}/build"
-  environment                  = "dev"
+  environment                  = var.environment
   schedule_expression   = var.schedule_expression
   destination_bucket    = "dev-env-claimcenter-logs"
   log_group_names       = [
