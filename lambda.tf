@@ -167,26 +167,3 @@ module "lambda" {
   ]
   log_prefix            = "CloudWatchLogs"
 }
-
-module "lambda_child" {
-count = var.create_lambda_function ? 1 : 0 # Set to false to disable
-source = "./modules/lambda"
-create_lambda_function = var.create_lambda_function
-schedule_expression = var.schedule_expression
-function_name                = "export_logs_to_s3_child"
-  function_handler             = "lambda_function.lambda_handler"
-  function_runtime             = "python3.12"
-  lambda_iam_role_arn          = module.lambda_iam_role.0.iam_role_arn
-  function_timeout_in_seconds  = 600
-  function_source_dir          = "${path.module}/aws_lambda_functions/export_logs_to_s3"
-  function_zip_output_dir      = "${path.module}/build"
-  environment                  = "dev"
-  destination_bucket    = "dev-env-claimcenter-logs"
-  log_group_names       = [
-    var.claimcenetr_node01_serverid,
-    var.claimcenetr_node02_serverid,
-    var.claimcenetr_batch_serverid,
-    var.claimcenetr_contactmanager_serverid
-  ]
-  log_prefix            = "CloudWatchLogs"
-}
